@@ -1,0 +1,70 @@
+plugins {
+    id("groovy") 
+    id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("io.micronaut.application") version "2.0.3"
+    id("com.google.cloud.tools.jib") version "2.8.0"
+}
+
+version = "0.1"
+group = "com.app"
+
+repositories {
+    mavenCentral()
+}
+
+micronaut {
+    runtime("netty")
+    testRuntime("spock2")
+    processing {
+        incremental(true)
+        annotations("com.app.*")
+    }
+}
+
+dependencies {
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-management")
+    implementation("io.micronaut:micronaut-runtime")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("io.micronaut.kafka:micronaut-kafka")
+    implementation("io.micronaut.kubernetes:micronaut-kubernetes-discovery-client")
+    implementation("io.micronaut.liquibase:micronaut-liquibase")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.swagger.core.v3:swagger-annotations")
+    implementation("javax.annotation:javax.annotation-api")
+    runtimeOnly("org.postgresql:postgresql")
+    runtimeOnly("org.slf4j:slf4j-simple")
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:spock")
+    testImplementation("org.testcontainers:testcontainers")
+    implementation("io.micronaut:micronaut-validation")
+
+}
+
+
+application {
+    mainClass.set("com.app.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("11")
+    targetCompatibility = JavaVersion.toVersion("11")
+}
+
+
+dockerBuild {
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:$project.version"]
+}
+
+dockerBuildNative {
+    images = ["${System.env.DOCKER_IMAGE ?: project.name}:$project.version"]
+}
+
+jib {
+    to {
+        image = "gcr.io/myapp/jib-image"
+    }
+}

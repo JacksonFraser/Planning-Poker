@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.app
+testFramework: spock
+sourceLanguage: java
+buildTool: gradle
+features: [annotation-api, app-name, config-kubernetes, data, data-jpa, github-workflow-docker-registry, gradle, hibernate-jpa, http-client, java, java-application, jdbc-hikari, jib, kafka, kubernetes, liquibase, management, netty-server, openapi, postgres, readme, shade, slf4j-simple, spock, testcontainers, yaml]
