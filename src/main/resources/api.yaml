@@ -1,0 +1,67 @@
+openapi: "3.0.2"
+info:
+  title: Planning Poker API
+  version: "1.0"
+servers:
+  - url: https://planning-poker
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: OK
+  /player:
+    get:
+      tags:
+        - player
+      operationId: getAll
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerResult'
+
+components:
+  schemas:
+    PlayerResult:
+      type: array
+      items:
+        $ref: '#/components/schemas/Player'
+
+    RoundResult:
+      type: array
+      items:
+        $ref: '#/components/schemas/Round'
+
+    Round:
+      type: object
+      properties:
+        id:
+          type: integer
+        players:
+          type: array
+          items:
+            $ref: '#/components/schemas/PlayerResult'
+        description:
+          type: string
+        result:
+          type: number
+
+    Player:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        rounds:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoundResult'
+        vote:
+          type: number
+
+
+

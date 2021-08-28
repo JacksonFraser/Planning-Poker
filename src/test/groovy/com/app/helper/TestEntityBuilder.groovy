@@ -19,7 +19,8 @@ trait TestEntityBuilder {
 
         Map values = [
                 name  : "Bobby Jarzombek",
-                rounds: null
+                rounds: null,
+                vote  : 5g
 
         ] + givenValues
 
@@ -28,6 +29,7 @@ trait TestEntityBuilder {
                 return save(Player.builder()
                         .name(values.name as String)
                         .rounds(values.rounds as HashSet)
+                        .vote(values.vote as BigDecimal)
                         .build())
             })
         }
