@@ -3,6 +3,7 @@ package com.app.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,16 +14,13 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "player")
-public class Player {
+@Table(name = "round")
+public class Round {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @Column(name = "name", nullable = false, unique = true)
-    private String name;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -30,12 +28,15 @@ public class Player {
     })
     @JoinTable(
             name = "round_player",
-            joinColumns = {@JoinColumn(name = "player_id")},
-            inverseJoinColumns = {@JoinColumn(name = "round_id")}
+            joinColumns = {@JoinColumn(name = "round_id")},
+            inverseJoinColumns = {@JoinColumn(name = "player_id")}
     )
-    private Set<Round> rounds = new HashSet<>();
+    private Set<Player> players = new HashSet<>();
+
+    private String description;
+
+    private BigDecimal result;
 
 }
-
 
 

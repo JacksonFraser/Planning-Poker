@@ -1,4 +1,4 @@
-package com.app;
+package com.app.repositories;
 
 import com.app.models.Player;
 import io.micronaut.data.annotation.Repository;
