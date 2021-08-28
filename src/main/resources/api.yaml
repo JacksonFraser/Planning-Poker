@@ -3,7 +3,7 @@ info:
   title: Planning Poker API
   version: "1.0"
 servers:
-  - url: https://planning-poker
+  - url: http://localhost:8080/planning-poker
 paths:
   /test:
     get:
