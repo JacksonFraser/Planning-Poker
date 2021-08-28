@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="round_player-01" author="jackson.fraser">
+        <createTable tableName="round_player"
+                     remarks="A table to contain all round_player">
+            <column name="id" type="serial" autoIncrement="true" incrementBy="1">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+            <column name="round_id" type="int">
+                <constraints nullable="false" unique="false"/>
+            </column>
+            <column name="player_id" type="int">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="round_player"
+                                 baseColumnNames="round_id"
+                                 constraintName="fk_round"
+                                 referencedTableName="round"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="round_player"
+                                 baseColumnNames="player_id"
+                                 constraintName="fk_player"
+                                 referencedTableName="player"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

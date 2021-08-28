@@ -1,7 +1,7 @@
 package com.app.services;
 
-import com.app.PlayerRepository;
 import com.app.models.Player;
+import com.app.repositories.PlayerRepository;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.model.Page;
 import io.micronaut.data.model.Pageable;

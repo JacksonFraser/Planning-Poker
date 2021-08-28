@@ -5,16 +5,14 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="player-01" author="jackson.fraser">
-        <createTable tableName="player"
-                     remarks="A table to contain all players">
+    <changeSet id="round-01" author="jackson.fraser">
+        <createTable tableName="round"
+                     remarks="A table to contain all rounds">
             <column name="id" type="SERIAL" autoIncrement="true" incrementBy="1">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-
+            <column name="description" type="varchar(255)"/>
+            <column name="result" type="int"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -1,6 +1,36 @@
+micronaut:
+  application:
+    name: planningpoker
+  server:
+    context-path: /planningpoker
+  metrics:
+    enabled: true
+    export:
+      prometheus:
+        enabled: true
+        step: PT1M
+        descriptions: true
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: /**
+        paths: classpath:public
+  security:
+    enabled: true
+    endpoints:
+      login:
+        enabled: false
+      oauth:
+        enabled: false
+    intercept-url-map:
+      - pattern: /**
+        access:
+          - isAnonymous()
+
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/planningpoker
     driverClassName: org.postgresql.Driver
     username: postgres
     password: postgres
