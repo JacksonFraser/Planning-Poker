@@ -15,10 +15,28 @@ repositories {
 micronaut {
     runtime("netty")
     testRuntime("spock2")
+
     processing {
         incremental(true)
         annotations("com.app.*")
     }
+}
+
+
+sourceSets {
+    e2eTest {
+        groovy {
+            compileClasspath += sourceSets.main.output + sourceSets.test.output
+            runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+            srcDir file('src/e2e-test/groovy')
+            resources.srcDir file('src/e2e-test/resources')
+        }
+    }
+}
+
+task e2eTest(type: Test) {
+    testClassesDirs = sourceSets.e2eTest.output.classesDirs
+    classpath = sourceSets.e2eTest.runtimeClasspath
 }
 
 dependencies {
@@ -27,18 +45,18 @@ dependencies {
     compileOnly("org.projectlombok:lombok:1.18.20")
     annotationProcessor("org.projectlombok:lombok:1.18.20")
 
-    annotationProcessor("io.micronaut:micronaut-http-validation")
-    annotationProcessor('io.micronaut.data:micronaut-data-processor:2.5.0')
+    annotationProcessor('io.micronaut:micronaut-http-validation:3.0.0')
+    annotationProcessor('io.micronaut.data:micronaut-data-processor:3.0.0')
     annotationProcessor('io.micronaut.openapi:micronaut-openapi:3.0.0')
-    implementation('io.micronaut:micronaut-http-client:2.5.12')
-    implementation('io.micronaut:micronaut-management:2.5.12')
-    implementation('io.micronaut:micronaut-runtime:2.5.12')
-    implementation('io.micronaut.data:micronaut-data-hibernate-jpa:2.5.0')
-    implementation('io.micronaut.kafka:micronaut-kafka:3.3.3')
-    implementation('io.micronaut.kubernetes:micronaut-kubernetes-discovery-client:2.3.4')
+    implementation('io.micronaut:micronaut-http-client:3.0.0')
+    implementation('io.micronaut:micronaut-management:3.0.0')
+    implementation('io.micronaut:micronaut-runtime:3.0.0')
+    implementation('io.micronaut.data:micronaut-data-hibernate-jpa:3.0.0')
+    implementation('io.micronaut.kafka:micronaut-kafka:4.0.0')
+    implementation('io.micronaut.kubernetes:micronaut-kubernetes-discovery-client:3.0.0')
     implementation('io.micronaut.liquibase:micronaut-liquibase:4.0.2')
-    implementation('io.micronaut.sql:micronaut-hibernate-jpa:3.4.0')
-    implementation('io.micronaut.sql:micronaut-jdbc-hikari:3.4.0')
+    implementation('io.micronaut.sql:micronaut-hibernate-jpa:4.0.0')
+    implementation('io.micronaut.sql:micronaut-jdbc-hikari:4.0.0')
     implementation('io.swagger.core.v3:swagger-annotations:2.1.10')
     implementation('javax.annotation:javax.annotation-api:1.3.2')
     runtimeOnly('org.postgresql:postgresql:42.2.23.jre7')
@@ -46,13 +64,28 @@ dependencies {
     testImplementation('org.testcontainers:postgresql:1.16.0')
     testImplementation('org.testcontainers:spock:1.16.0')
     testImplementation('org.testcontainers:testcontainers:1.16.0')
-    implementation('io.micronaut:micronaut-validation:2.5.12')
+    implementation('io.micronaut:micronaut-validation:3.0.0')
     implementation("javax.annotation:javax.annotation-api:1.3.2")
     implementation("javax.inject:javax.inject:1")
 
 
-}
+    //E2E dependencies
+    e2eTestImplementation('org.testcontainers:postgresql:1.16.0')
+    e2eTestImplementation('org.testcontainers:spock:1.16.0')
+    e2eTestImplementation('org.testcontainers:testcontainers:1.16.0')
+    e2eTestImplementation("javax.annotation:javax.annotation-api:1.3.2")
+    e2eTestImplementation("javax.inject:javax.inject:1")
+    e2eTestImplementation("io.micronaut:micronaut-inject:3.0.0")
+    e2eTestImplementation('io.micronaut.data:micronaut-data-hibernate-jpa:3.0.0')
+    e2eTestImplementation('io.micronaut.sql:micronaut-hibernate-jpa:4.0.0')
+    e2eTestImplementation('io.swagger.core.v3:swagger-annotations:2.1.10')
+    e2eTestImplementation('io.micronaut:micronaut-http-client:3.0.0')
 
+    e2eTestImplementation('io.micronaut:micronaut-runtime:3.0.0')
+    implementation('io.micronaut.sql:micronaut-jdbc-hikari:4.0.0')
+
+    e2eTestImplementation project(":client")
+}
 
 application {
     mainClass.set("com.app.Application")

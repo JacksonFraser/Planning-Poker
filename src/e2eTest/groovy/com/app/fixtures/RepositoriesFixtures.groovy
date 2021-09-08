@@ -1,19 +1,28 @@
-package com.app.helper
+package com.app.fixtures
 
 import com.app.models.Player
 import com.app.models.Round
 import com.app.repositories.PlayerRepository
+import com.app.repositories.RoundPlayerRepository
 import com.app.repositories.RoundRepository
 import io.micronaut.context.ApplicationContext
-import spock.lang.Shared
 
-import javax.inject.Inject
+trait RepositoriesFixtures {
 
-trait TestEntityBuilder {
+    abstract ApplicationContext getApplicationContext()
 
-    @Shared
-    @Inject
-    ApplicationContext context
+    PlayerRepository getPlayerRepository() {
+        applicationContext.getBean(PlayerRepository)
+    }
+
+    RoundRepository getRoundRepository() {
+        applicationContext.getBean(RoundRepository)
+    }
+
+    RoundPlayerRepository getRoundPlayerRepository() {
+        applicationContext.getBean(RoundPlayerRepository)
+    }
+
 
     Player buildPlayer(Map givenValues = [:]) {
 
@@ -24,7 +33,7 @@ trait TestEntityBuilder {
 
         ] + givenValues
 
-        return context.getBean(PlayerRepository).with {
+        return playerRepository.with {
             return findByName(values.name as String).orElseGet({
                 return save(Player.builder()
                         .name(values.name as String)
@@ -41,10 +50,9 @@ trait TestEntityBuilder {
                 description: "something other than nothing",
                 result     : 5g
 
-
         ] + givenValues
 
-        return context.getBean(RoundRepository).with {
+        return roundRepository.with {
             return save(Round.builder()
                     .players(values.players as HashSet)
                     .description(values.description as String)
@@ -52,4 +60,6 @@ trait TestEntityBuilder {
                     .build())
         }
     }
+
+
 }

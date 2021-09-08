@@ -1,2 +1,3 @@
+rootProject.name = "planningpoker"
 
-rootProject.name="planningpoker"
+include("client")

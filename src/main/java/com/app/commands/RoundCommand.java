@@ -1,9 +1,11 @@
 package com.app.commands;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 
 import java.util.Optional;
 
+@Introspected
 public class RoundCommand {
 
     @NonNull

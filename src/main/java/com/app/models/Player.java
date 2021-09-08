@@ -3,6 +3,7 @@ package com.app.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,6 +35,8 @@ public class Player {
             inverseJoinColumns = {@JoinColumn(name = "round_id")}
     )
     private Set<Round> rounds = new HashSet<>();
+
+    private BigDecimal vote;
 
 }
 

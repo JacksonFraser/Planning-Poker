@@ -3,6 +3,7 @@ micronaut:
     name: planningpoker
   server:
     context-path: /planningpoker
+    port: 8080
   metrics:
     enabled: true
     export:
@@ -52,3 +53,10 @@ liquibase:
   datasources:
     default:
       change-log: 'classpath:db/liquibase-changelog.xml'
+endpoints:
+  health:
+    enabled: Boolean
+    sensitive: Boolean
+    details-visible: String
+    status:
+      http-mapping: Map<String, HttpStatus>

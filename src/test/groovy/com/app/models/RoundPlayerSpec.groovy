@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @MicronautTest
 class RoundPlayerSpec extends Specification implements TestEntityBuilder {
-
     @Inject
     RoundPlayerRepository roundPlayerRepository
 
