@@ -1,4 +1,6 @@
-package com.app
+package com.app.tests
+
+import com.app.ApplicationServerSpecification
 
 class DefaultE2ESpec extends ApplicationServerSpecification {
 

@@ -6,17 +6,19 @@ import planningpoker.client.invoker.ApiClient
 
 class PlanningPokerClient {
 
+
     private ApiClient client
 
     PlanningPokerClient(ApiClient client) {
+        client.setBasePath("http://localhost:8080/planning-poker")
         this.client = client
     }
 
-    PlayerApi playerApi() {
+    PlayerApi getPlayerApi() {
         return new PlayerApi(client)
     }
 
-    DefaultApi defaultApi() {
+    DefaultApi getDefaultApi() {
         return new DefaultApi(client)
     }
 }
